@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDM Car Detailing | Valencia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --red: #e01020;
+      --red-dark: #a00010;
+      --blue: #1040e0;
+      --blue-dark: #0828a0;
+      --black: #060608;
+      --black2: #0e0e12;
+      --white: #f0f0f5;
+      --grey: #1a1a22;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(6,6,8,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(224,16,32,0.3);
+    }
+
+    .nav-logo { height: 44px; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    nav ul a {
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+
+    nav ul a:hover { color: var(--red); }
+
+    /* ── HERO ── */
+    #inicio {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(16,64,224,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(224,16,32,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 20%, rgba(224,16,32,0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(224,16,32,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,64,224,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 900px; }
+
+    .hero-logo-wrap {
+      margin-bottom: 32px;
+      display: inline-block;
+    }
+
+    .hero-tagline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(42px, 8vw, 88px);
+      line-height: 1;
+      letter-spacing: 4px;
+      background: linear-gradient(135deg, var(--white) 0%, #c0c8ff 40%, var(--white) 70%, #ffc0c0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 3vw, 22px);
+      color: #9090b0;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 48px;
+      font-weight: 500;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+
+    .badge {
+      padding: 8px 20px;
+      border-radius: 3px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
+
+    .badge-red {
+      background: rgba(224,16,32,0.12);
+      border-color: rgba(224,16,32,0.5);
+      color: #ff6070;
+    }
+
+    .badge-blue {
+      background: rgba(16,64,224,0.12);
+      border-color: rgba(16,64,224,0.5);
+      color: #7090ff;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 16px 48px;
+      background: linear-gradient(135deg, var(--red-dark), var(--red));
+      color: white;
+      text-decoration: none;
+      font-family: 'Oswald', sans-serif;
+      font-size: 17px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border-radius: 3px;
+      transition: all .25s;
+      box-shadow: 0 0 30px rgba(224,16,32,0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(224,16,32,0.6);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: .4;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-indicator span {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 2px solid var(--white);
+      border-bottom: 2px solid var(--white);
+      transform: rotate(45deg);
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── SERVICES STRIP ── */
+    .services-strip {
+      background: linear-gradient(90deg, var(--red-dark), var(--blue-dark));
+      padding: 20px 40px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    .service-item {
+      padding: 0 32px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      border-right: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .service-item:last-child { border-right: none; }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      text-align: center;
+      padding: 80px 24px 48px;
+    }
+
+    .section-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 6vw, 64px);
+      letter-spacing: 4px;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .section-line {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--blue));
+      margin: 0 auto;
+    }
+
+    /* ── GALLERY ── */
+    #trabajos {
+      padding: 0 24px 100px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .tab {
+      padding: 12px 32px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: #606080;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      transition: all .2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+
+    .tab.active, .tab:hover {
+      color: var(--white);
+      border-bottom-color: var(--red);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Photos grid */
+    .photos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .photo-item {
+      aspect-ratio: 4/3;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      background: var(--grey);
+      cursor: pointer;
+      transition: transform .25s;
+    }
+
+    .photo-item:hover { transform: scale(1.02); }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #0e0e16, #1a1a28);
+      border: 1px dashed rgba(255,255,255,0.1);
+    }
+
+    .photo-placeholder svg { opacity: .3; }
+
+    .photo-placeholder span {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #404060;
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity .25s;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+
+    .photo-item:hover .photo-overlay { opacity: 1; }
+
+    .photo-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    /* Videos grid */
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    .video-item {
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--grey);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .video-thumb {
+      aspect-ratio: 16/9;
+      position: relative;
+      background: linear-gradient(135deg, #0e0e16, #1a1a28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 1px dashed rgba(255,255,255,0.08);
+    }
+
+    .video-thumb iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .video-play-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red-dark), var(--red));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(224,16,32,0.5);
+      transition: transform .2s;
+      pointer-events: none;
+    }
+
+    .video-thumb:hover .video-play-btn { transform: scale(1.1); }
+
+    .video-info {
+      padding: 16px 20px;
+    }
+
+    .video-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .video-sub {
+      font-size: 13px;
+      color: #505070;
+      letter-spacing: 1px;
+    }
+
+    .video-placeholder-text {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #303050;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(160,0,16,0.2), rgba(8,40,160,0.2));
+      border-top: 1px solid rgba(224,16,32,0.2);
+      border-bottom: 1px solid rgba(16,64,224,0.2);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .cta-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+    }
+
+    .cta-sub {
+      font-size: 16px;
+      color: #8080a0;
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #040406;
+      padding: 40px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-logo { height: 40px; margin-bottom: 16px; }
+
+    .footer-text {
+      font-size: 13px;
+      color: #303050;
+      letter-spacing: 1px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      nav ul { gap: 20px; }
+      .service-item { padding: 0 16px; font-size: 12px; }
+      .photos-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .videos-grid { grid-template-columns: 1fr; }
+      .gallery-tabs { overflow-x: auto; }
+    }
+
+    @media (max-width: 480px) {
+      nav ul { display: none; }
+      .photos-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <svg class="nav-logo" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Inline small logo for nav -->
+    <text x="4" y="38" font-family="'Bebas Neue', Impact, sans-serif" font-size="40" fill="url(#ng)" letter-spacing="2">MDM</text>
+    <text x="4" y="48" font-family="'Oswald', Arial Narrow, sans-serif" font-size="9" fill="#7090ff" letter-spacing="4">CAR DETAILING</text>
+    <defs>
+      <linearGradient id="ng" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#e01020"/>
+        <stop offset="50%" stop-color="#f0f0f5"/>
+        <stop offset="100%" stop-color="#1040e0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+  <ul>
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#trabajos">Trabajos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+
+    <!-- MAIN LOGO SVG -->
+    <div class="hero-logo-wrap">
+      <svg width="520" height="160" viewBox="0 0 520 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:90vw;height:auto;">
+        <defs>
+          <!-- Red gradient -->
+          <linearGradient id="redGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ff3040"/>
+            <stop offset="50%" stop-color="#e01020"/>
+            <stop offset="100%" stop-color="#800010"/>
+          </linearGradient>
+          <!-- Blue gradient -->
+          <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4060ff"/>
+            <stop offset="50%" stop-color="#1040e0"/>
+            <stop offset="100%" stop-color="#082080"/>
+          </linearGradient>
+          <!-- White-silver gradient for MDM -->
+          <linearGradient id="silverGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="30%" stop-color="#e0e0f0"/>
+            <stop offset="60%" stop-color="#a0a0c0"/>
+            <stop offset="100%" stop-color="#606080"/>
+          </linearGradient>
+          <!-- Chrome shine -->
+          <linearGradient id="shineGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.6)"/>
+            <stop offset="50%" stop-color="rgba(255,255,255,0)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0.1)"/>
+          </linearGradient>
+          <!-- Glow filter -->
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="textGlow">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- BACKGROUND SHAPE - angled badge -->
+        <polygon points="10,10 510,10 510,110 0,120" fill="rgba(0,0,0,0.5)" />
+
+        <!-- RED left accent bar -->
+        <polygon points="0,8 18,8 18,122 0,125" fill="url(#redGrad)" filter="url(#glow)"/>
+        <!-- BLUE right accent bar -->
+        <polygon points="502,8 520,8 520,112 502,115" fill="url(#blueGrad)" filter="url(#glow)"/>
+
+        <!-- Red top line -->
+        <line x1="0" y1="8" x2="520" y2="8" stroke="url(#redGrad)" stroke-width="2.5"/>
+        <!-- Blue bottom line -->
+        <line x1="0" y1="123" x2="520" y2="118" stroke="url(#blueGrad)" stroke-width="2"/>
+
+        <!-- Shadow layer for MDM -->
+        <text x="28" y="101" font-family="'Bebas Neue', Impact, sans-serif"
+          font-size="102" letter-spacing="6" fill="rgba(0,0,0,0.8)"
+          transform="skewX(-3)">MDM</text>
+
+        <!-- MDM main text - silver/white -->
+        <text x="24" y="98" font-family="'Bebas Neue', Impact, sans-serif"
+          font-size="102" letter-spacing="6" fill="url(#silverGrad)"
+          filter="url(#textGlow)" transform="skewX(-3)">MDM</text>
+
+        <!-- Shine overlay on MDM -->
+        <text x="24" y="98" font-family="'Bebas Neue', Impact, sans-serif"
+          font-size="102" letter-spacing="6" fill="url(#shineGrad)"
+          transform="skewX(-3)">MDM</text>
+
+        <!-- Red scratch/stripe through letters -->
+        <polygon points="0,55 520,48 520,56 0,63" fill="rgba(224,16,32,0.25)"/>
+
+        <!-- CAR DETAILING subtitle -->
+        <text x="26" y="136" font-family="'Oswald', Arial Narrow, sans-serif"
+          font-size="18" letter-spacing="12" fill="#7090ff" font-weight="700"
+          transform="skewX(-2)">CAR DETAILING</text>
+
+        <!-- Red dot accent -->
+        <circle cx="495" cy="130" r="5" fill="var(--red)" filter="url(#glow)" opacity="0.8"/>
+        <circle cx="508" cy="130" r="3" fill="#1040e0" filter="url(#glow)" opacity="0.8"/>
+
+        <!-- Small red/blue dots decoration -->
+        <circle cx="24" cy="140" r="3" fill="#e01020" opacity="0.6"/>
+        <circle cx="36" cy="140" r="2" fill="#1040e0" opacity="0.6"/>
+      </svg>
+    </div>
+
+    <p class="hero-tagline">Tu coche merece brillar</p>
+    <p class="hero-sub">Sistema 3M Perfect-It · Servicio a domicilio · Valencia</p>
+
+    <div class="hero-badges">
+      <span class="badge badge-red">Puliture Profesional</span>
+      <span class="badge badge-blue">Corrección de Pintura</span>
+      <span class="badge badge-red">Ceramic Coating</span>
+      <span class="badge badge-blue">Restauración de Faros</span>
+    </div>
+
+    <a href="#trabajos" class="btn-primary">Ver nuestros trabajos</a>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- SERVICES STRIP -->
+<div class="services-strip">
+  <span class="service-item">Plan Normal</span>
+  <span class="service-item">Puliture Completa</span>
+  <span class="service-item">Full Corrección</span>
+  <span class="service-item">Puliture de Faros</span>
+  <span class="service-item">Ceramic Coating</span>
+  <span class="service-item">Protección 3M</span>
+</div>
+
+<!-- GALLERY SECTION -->
+<section id="trabajos">
+  <div class="section-header">
+    <p class="section-label">Resultados reales</p>
+    <h2 class="section-title">Nuestros Trabajos</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="gallery-tabs">
+    <button class="tab active" onclick="switchTab('fotos', this)">Fotos</button>
+    <button class="tab" onclick="switchTab('videos', this)">Videos</button>
+  </div>
+
+  <!-- PHOTOS TAB -->
+  <div id="tab-fotos" class="tab-content active">
+    <div class="photos-grid" id="photosGrid">
+      <!-- Placeholders — reemplazar src con tus fotos reales -->
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="10" width="40" height="30" rx="3" stroke="white" stroke-width="1.5"/><circle cx="24" cy="25" r="8" stroke="white" stroke-width="1.5"/><circle cx="37" cy="16" r="2" fill="white"/></svg>
+          <span>Foto 1</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-label">Puliture BMW</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="10" width="40" height="30" rx="3" stroke="white" stroke-width="1.5"/><circle cx="24" cy="25" r="8" stroke="white" stroke-width="1.5"/><circle cx="37" cy="16" r="2" fill="white"/></svg>
+          <span>Foto 2</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-label">Corrección Audi</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="10" width="40" height="30" rx="3" stroke="white" stroke-width="1.5"/><circle cx="24" cy="25" r="8" stroke="white" stroke-width="1.5"/><circle cx="37" cy="16" r="2" fill="white"/></svg>
+          <span>Foto 3</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-label">Faros Mercedes</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="10" width="40" height="30" rx="3" stroke="white" stroke-width="1.5"/><circle cx="24" cy="25" r="8" stroke="white" stroke-width="1.5"/><circle cx="37" cy="16" r="2" fill="white"/></svg>
+          <span>Foto 4</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-label">Ceramic Coating</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="10" width="40" height="30" rx="3" stroke="white" stroke-width="1.5"/><circle cx="24" cy="25" r="8" stroke="white" stroke-width="1.5"/><circle cx="37" cy="16" r="2" fill="white"/></svg>
+          <span>Foto 5</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-label">Antes / Después</span></div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="10" width="40" height="30" rx="3" stroke="white" stroke-width="1.5"/><circle cx="24" cy="25" r="8" stroke="white" stroke-width="1.5"/><circle cx="37" cy="16" r="2" fill="white"/></svg>
+          <span>Foto 6</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-label">Detailing Completo</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEOS TAB -->
+  <div id="tab-videos" class="tab-content">
+    <div class="videos-grid">
+      <div class="video-item">
+        <div class="video-thumb" id="vthumb1" onclick="loadVideo('vthumb1', 'TU_VIDEO_ID_1')">
+          <div class="video-play-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="video-info">
+          <p class="video-title">Puliture BMW Serie 3</p>
+          <p class="video-sub">Transformación completa · Valencia</p>
+        </div>
+      </div>
+      <div class="video-item">
+        <div class="video-thumb" id="vthumb2" onclick="loadVideo('vthumb2', 'TU_VIDEO_ID_2')">
+          <div class="video-play-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="video-info">
+          <p class="video-title">Corrección de Pintura Audi</p>
+          <p class="video-sub">Full corrección + Ceramic</p>
+        </div>
+      </div>
+      <div class="video-item">
+        <div class="video-thumb" id="vthumb3" onclick="loadVideo('vthumb3', 'TU_VIDEO_ID_3')">
+          <div class="video-play-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="video-info">
+          <p class="video-title">Restauración de Faros</p>
+          <p class="video-sub">Resultados en tiempo real</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section" id="contacto">
+  <h2 class="cta-title">¿Listo para darle vida a tu coche?</h2>
+  <p class="cta-sub">Inspección gratuita · Sin compromiso · A domicilio</p>
+  <a href="https://wa.me/34TUNUMERO" class="btn-primary" target="_blank">
+    Contactar por WhatsApp
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <svg class="footer-logo" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <text x="4" y="38" font-family="'Bebas Neue', Impact, sans-serif" font-size="40" fill="url(#fg)" letter-spacing="2">MDM</text>
+    <text x="4" y="48" font-family="'Oswald', Arial Narrow, sans-serif" font-size="9" fill="#404060" letter-spacing="4">CAR DETAILING</text>
+    <defs>
+      <linearGradient id="fg" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#600008"/>
+        <stop offset="50%" stop-color="#505070"/>
+        <stop offset="100%" stop-color="#081040"/>
+      </linearGradient>
+    </defs>
+  </svg>
+  <p class="footer-text">© 2026 MDM Car Detailing · Valencia, España · Todos los derechos reservados</p>
+</footer>
+
+<script>
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-content').forEach(function(el){ el.classList.remove('active'); });
+    document.querySelectorAll('.tab').forEach(function(el){ el.classList.remove('active'); });
+    document.getElementById('tab-' + tab).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function loadVideo(thumbId, videoId) {
+    var thumb = document.getElementById(thumbId);
+    if (videoId.startsWith('TU_VIDEO')) {
+      alert('Reemplaza TU_VIDEO_ID con el ID real de YouTube');
+      return;
+    }
+    thumb.innerHTML = '<iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+  }
+
+  // Lazy load — add real photos by replacing placeholder divs with:
+  // <img src="tu-foto.jpg" alt="descripcion">
+</script>
+
+</body>
+</html>
