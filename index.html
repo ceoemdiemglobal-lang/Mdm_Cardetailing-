@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDM Car Detailing | Valencia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --red: #e01020;
+      --red-dark: #a00010;
+      --blue: #1040e0;
+      --blue-dark: #0828a0;
+      --black: #060608;
+      --white: #f0f0f5;
+      --grey: #1a1a22;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+
+    /* ── CARS BACKGROUND ── */
+    .cars-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .car-lane { position: absolute; left: -500px; }
+    .car-lane-1 { top: 15%; animation: driveCar 18s linear infinite; }
+    .car-lane-2 { top: 40%; animation: driveCar 26s linear infinite 5s; }
+    .car-lane-3 { top: 60%; animation: driveCar 21s linear infinite 10s; }
+    .car-lane-4 { top: 28%; animation: driveCar 33s linear infinite 2s; }
+    .car-lane-5 { top: 74%; animation: driveCar 23s linear infinite 15s; }
+    @keyframes driveCar { 0% { left: -500px; } 100% { left: 110vw; } }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 64px;
+      background: rgba(6,6,8,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(224,16,32,0.3);
+    }
+    .nav-logo { height: 44px; }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul a { color: var(--white); text-decoration: none; font-family: 'Oswald', sans-serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; transition: color .2s; }
+    nav ul a:hover { color: var(--red); }
+
+    /* ── HERO ── */
+    #inicio {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 80px 24px 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(16,64,224,0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(224,16,32,0.16) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 20%, rgba(224,16,32,0.10) 0%, transparent 50%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background-image: linear-gradient(rgba(224,16,32,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(16,64,224,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content { position: relative; z-index: 3; max-width: 900px; }
+
+    /* US STANDARDS BADGE */
+    .us-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, rgba(60,59,110,0.3), rgba(178,34,52,0.2));
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
+      padding: 10px 20px; margin-bottom: 28px; flex-wrap: wrap; justify-content: center;
+    }
+    .us-badge span { font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+    .us-badge .us-main { color: var(--white); }
+    .us-badge .us-sep { color: rgba(255,255,255,0.25); }
+    .us-badge .us-3m { color: #ff8090; }
+
+    .hero-tagline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(42px, 8vw, 88px); line-height: 1; letter-spacing: 4px;
+      background: linear-gradient(135deg, #ffffff 0%, #c0c8ff 40%, #ffffff 70%, #ffc0c0 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 16px;
+    }
+    .hero-sub { font-size: clamp(15px, 2.5vw, 20px); color: #9090b0; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; }
+
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 44px; }
+    .badge { padding: 7px 18px; border-radius: 3px; font-family: 'Oswald', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; border: 1px solid; }
+    .badge-red { background: rgba(224,16,32,0.1); border-color: rgba(224,16,32,0.45); color: #ff6070; }
+    .badge-blue { background: rgba(16,64,224,0.1); border-color: rgba(16,64,224,0.45); color: #7090ff; }
+
+    .btn-primary {
+      display: inline-block; padding: 15px 44px;
+      background: linear-gradient(135deg, var(--red-dark), var(--red));
+      color: white; text-decoration: none;
+      font-family: 'Oswald', sans-serif; font-size: 16px; letter-spacing: 3px; text-transform: uppercase;
+      border-radius: 3px; transition: all .25s; box-shadow: 0 0 30px rgba(224,16,32,0.4);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(224,16,32,0.6); }
+
+    .scroll-ind {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity: .35; animation: bounce 2s infinite; z-index: 3;
+    }
+    .scroll-ind span { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; }
+    .scroll-arrow { width: 18px; height: 18px; border-right: 2px solid white; border-bottom: 2px solid white; transform: rotate(45deg); }
+    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+    /* ── SERVICES STRIP ── */
+    .strip {
+      background: linear-gradient(90deg, var(--red-dark), var(--blue-dark));
+      padding: 18px 40px; display: flex; justify-content: center; flex-wrap: wrap; gap: 0;
+      position: relative; z-index: 5;
+    }
+    .strip-item { padding: 0 28px; font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.85); border-right: 1px solid rgba(255,255,255,0.2); }
+    .strip-item:last-child { border-right: none; }
+
+    /* ── STANDARDS ── */
+    .standards {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: #0e0e12;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: relative; z-index: 5;
+    }
+    .std-item { display: flex; align-items: center; gap: 14px; padding: 26px 22px; border-right: 1px solid rgba(255,255,255,0.06); transition: background .2s; }
+    .std-item:last-child { border-right: none; }
+    .std-item:hover { background: rgba(255,255,255,0.03); }
+    .std-title { font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--white); margin-bottom: 3px; }
+    .std-sub { font-size: 12px; color: #505070; }
+
+    /* ── TRABAJOS SECTION ── */
+    #trabajos { padding: 0 0 100px; position: relative; z-index: 5; }
+
+    .sec-header { text-align: center; padding: 72px 24px 48px; }
+    .sec-label { font-family: 'Oswald', sans-serif; font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+    .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(34px, 6vw, 60px); letter-spacing: 4px; margin-bottom: 14px; }
+    .sec-line { width: 56px; height: 3px; background: linear-gradient(90deg, var(--red), var(--blue)); margin: 0 auto; }
+
+    /* PHOTOS */
+    .photos-wrap { max-width: 1400px; margin: 0 auto 60px; padding: 0 24px; }
+    .photos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+    .photo-item {
+      aspect-ratio: 4/3; border-radius: 4px; overflow: hidden;
+      position: relative; background: var(--grey); cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .photo-item:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(224,16,32,0.3); }
+    .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* VIDEOS */
+    .videos-wrap { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+    .videos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+    .video-item { border-radius: 4px; overflow: hidden; background: var(--grey); border: 1px solid rgba(255,255,255,0.06); }
+    .video-item video { width: 100%; display: block; max-height: 280px; object-fit: cover; background: #000; }
+    .shorts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .short-item { border-radius: 8px; overflow: hidden; background: var(--grey); border: 1px solid rgba(255,255,255,0.08); aspect-ratio: 9/16; position: relative; }
+    .short-item iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+    /* ── CTA ── */
+    .cta {
+      background: linear-gradient(135deg, rgba(160,0,16,0.2), rgba(8,40,160,0.2));
+      border-top: 1px solid rgba(224,16,32,0.2); border-bottom: 1px solid rgba(16,64,224,0.2);
+      padding: 80px 24px; text-align: center; position: relative; z-index: 5;
+    }
+    .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(30px, 5vw, 54px); letter-spacing: 4px; margin-bottom: 14px; }
+    .cta-sub { font-size: 15px; color: #8080a0; letter-spacing: 2px; margin-bottom: 36px; }
+
+    /* ── FOOTER ── */
+    footer { background: #040406; padding: 36px 24px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 5; }
+    .footer-logo { height: 38px; margin-bottom: 14px; }
+    .footer-text { font-size: 12px; color: #303050; letter-spacing: 1px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) { .standards { grid-template-columns: repeat(2,1fr); } .std-item { border-bottom: 1px solid rgba(255,255,255,0.06); } }
+    @media (max-width: 768px) { nav { padding: 0 20px; } nav ul { gap: 18px; } .strip-item { padding: 0 14px; } .photos-grid { grid-template-columns: repeat(2,1fr); } .videos-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { nav ul { display: none; } .photos-grid { grid-template-columns: 1fr; } .standards { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- CARS BACKGROUND -->
+<div class="cars-bg" aria-hidden="true">
+
+  <!-- Car 1 — rojo grande -->
+  <div class="car-lane car-lane-1">
+    <svg width="440" height="120" viewBox="0 0 440 120" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.52">
+      <defs>
+        <filter id="g1"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <linearGradient id="b1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff2030"/><stop offset="100%" stop-color="#800010"/></linearGradient>
+      </defs>
+      <g filter="url(#g1)">
+        <path d="M20 75 L20 58 Q40 56 62 38 Q102 8 162 6 Q214 4 266 8 Q318 12 348 30 L378 48 L398 60 L402 72 L402 75 Z" fill="url(#b1)" stroke="#ff4050" stroke-width="1.5"/>
+        <path d="M70 39 Q102 12 158 10 L158 36 L70 39Z" fill="rgba(120,190,255,0.2)" stroke="#70b0e0" stroke-width="1"/>
+        <path d="M168 10 L262 10 L262 36 L168 36Z" fill="rgba(120,190,255,0.2)" stroke="#70b0e0" stroke-width="1"/>
+        <path d="M272 11 L316 16 L346 32 L346 36 L272 36Z" fill="rgba(120,190,255,0.15)" stroke="#70b0e0" stroke-width="1"/>
+        <circle cx="96" cy="78" r="24" fill="#0a0a0a" stroke="#e01020" stroke-width="2"/>
+        <circle cx="96" cy="78" r="13" fill="#141414" stroke="#ff3040" stroke-width="1.5"/>
+        <circle cx="96" cy="78" r="5" fill="#e01020"/>
+        <line x1="96" y1="65" x2="96" y2="78" stroke="#ff3040" stroke-width="1.2"/>
+        <line x1="96" y1="78" x2="109" y2="78" stroke="#ff3040" stroke-width="1.2"/>
+        <line x1="96" y1="78" x2="87" y2="87" stroke="#ff3040" stroke-width="1.2"/>
+        <circle cx="330" cy="78" r="24" fill="#0a0a0a" stroke="#e01020" stroke-width="2"/>
+        <circle cx="330" cy="78" r="13" fill="#141414" stroke="#ff3040" stroke-width="1.5"/>
+        <circle cx="330" cy="78" r="5" fill="#e01020"/>
+        <line x1="330" y1="65" x2="330" y2="78" stroke="#ff3040" stroke-width="1.2"/>
+        <line x1="330" y1="78" x2="343" y2="78" stroke="#ff3040" stroke-width="1.2"/>
+        <line x1="330" y1="78" x2="321" y2="87" stroke="#ff3040" stroke-width="1.2"/>
+        <ellipse cx="400" cy="60" rx="8" ry="5" fill="#ffdd44" opacity="0.95"/>
+        <path d="M404 57 L440 38 M404 62 L444 64" stroke="rgba(255,220,80,0.35)" stroke-width="2"/>
+        <path d="M72 18 Q134 5 205 6" stroke="rgba(255,255,255,0.65)" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="205" cy="104" rx="188" ry="7" fill="rgba(224,16,32,0.1)"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Car 2 — azul mediano -->
+  <div class="car-lane car-lane-2">
+    <svg width="360" height="105" viewBox="0 0 360 105" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.44">
+      <defs>
+        <filter id="g2"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <linearGradient id="b2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4060ff"/><stop offset="100%" stop-color="#0820a0"/></linearGradient>
+      </defs>
+      <g filter="url(#g2)">
+        <path d="M16 68 L16 52 Q30 50 50 34 Q80 10 132 8 Q174 6 218 10 Q268 14 290 28 L316 44 L328 56 L330 68 Z" fill="url(#b2)" stroke="#5070ff" stroke-width="1.5"/>
+        <path d="M56 35 Q82 12 128 10 L128 32 L56 35Z" fill="rgba(120,190,255,0.18)" stroke="#80aaff" stroke-width="1"/>
+        <path d="M137 10 L214 10 L214 31 L137 31Z" fill="rgba(120,190,255,0.18)" stroke="#80aaff" stroke-width="1"/>
+        <path d="M222 11 L262 16 L282 28 L282 31 L222 31Z" fill="rgba(120,190,255,0.12)" stroke="#80aaff" stroke-width="1"/>
+        <circle cx="79" cy="71" r="20" fill="#0a0a0a" stroke="#1040e0" stroke-width="2"/>
+        <circle cx="79" cy="71" r="11" fill="#141414" stroke="#4060ff" stroke-width="1.5"/>
+        <circle cx="79" cy="71" r="4" fill="#1040e0"/>
+        <circle cx="267" cy="71" r="20" fill="#0a0a0a" stroke="#1040e0" stroke-width="2"/>
+        <circle cx="267" cy="71" r="11" fill="#141414" stroke="#4060ff" stroke-width="1.5"/>
+        <circle cx="267" cy="71" r="4" fill="#1040e0"/>
+        <ellipse cx="327" cy="53" rx="7" ry="4" fill="#aaccff" opacity="0.9"/>
+        <path d="M330 50 L360 36 M330 55 L364 56" stroke="rgba(150,200,255,0.35)" stroke-width="1.5"/>
+        <path d="M57 21 Q108 8 168 8" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+        <ellipse cx="168" cy="90" rx="152" ry="6" fill="rgba(16,64,224,0.08)"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Car 3 — plata -->
+  <div class="car-lane car-lane-3">
+    <svg width="300" height="90" viewBox="0 0 300 90" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.32">
+      <defs>
+        <filter id="g3"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <linearGradient id="b3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d0d0e8"/><stop offset="100%" stop-color="#505068"/></linearGradient>
+      </defs>
+      <g filter="url(#g3)">
+        <path d="M12 58 L12 44 Q24 42 40 28 Q66 8 106 6 Q142 4 178 8 Q220 12 238 25 L258 38 L268 48 L270 58 Z" fill="url(#b3)" stroke="#b0b0d0" stroke-width="1.2"/>
+        <path d="M44 29 Q66 10 103 8 L103 26 L44 29Z" fill="rgba(150,200,255,0.14)" stroke="#9090b0" stroke-width="0.8"/>
+        <path d="M111 8 L174 8 L174 25 L111 25Z" fill="rgba(150,200,255,0.14)" stroke="#9090b0" stroke-width="0.8"/>
+        <circle cx="64" cy="61" r="17" fill="#0a0a0a" stroke="#909090" stroke-width="1.5"/>
+        <circle cx="64" cy="61" r="9" fill="#141414" stroke="#b0b0b0" stroke-width="1"/>
+        <circle cx="214" cy="61" r="17" fill="#0a0a0a" stroke="#909090" stroke-width="1.5"/>
+        <circle cx="214" cy="61" r="9" fill="#141414" stroke="#b0b0b0" stroke-width="1"/>
+        <ellipse cx="268" cy="46" rx="5" ry="3" fill="#ffffff" opacity="0.8"/>
+        <path d="M45 18 Q88 7 138 7" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round"/>
+        <ellipse cx="138" cy="76" rx="124" ry="5" fill="rgba(180,180,200,0.07)"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Car 4 — rojo fondo -->
+  <div class="car-lane car-lane-4">
+    <svg width="270" height="82" viewBox="0 0 270 82" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.22">
+      <defs><filter id="g4"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <g filter="url(#g4)">
+        <path d="M10 54 L10 41 Q22 39 38 26 Q62 7 100 5 Q133 3 166 7 Q204 11 222 23 L240 36 L250 46 L252 54 Z" fill="#900010" stroke="#d01020" stroke-width="1"/>
+        <path d="M40 27 Q62 9 97 7 L97 24 L40 27Z" fill="rgba(100,150,220,0.1)" stroke="#703040" stroke-width="0.8"/>
+        <path d="M104 7 L162 7 L162 23 L104 23Z" fill="rgba(100,150,220,0.1)" stroke="#703040" stroke-width="0.8"/>
+        <circle cx="60" cy="56" r="15" fill="#0a0a0a" stroke="#700010" stroke-width="1.5"/>
+        <circle cx="60" cy="56" r="8" fill="#141414" stroke="#900010" stroke-width="1"/>
+        <circle cx="198" cy="56" r="15" fill="#0a0a0a" stroke="#700010" stroke-width="1.5"/>
+        <circle cx="198" cy="56" r="8" fill="#141414" stroke="#900010" stroke-width="1"/>
+        <path d="M40 17 Q80 6 127 6" stroke="rgba(255,255,255,0.38)" stroke-width="1.2" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Car 5 — azul fondo -->
+  <div class="car-lane car-lane-5">
+    <svg width="250" height="78" viewBox="0 0 250 78" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.20">
+      <defs><filter id="g5"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <g filter="url(#g5)">
+        <path d="M10 50 L10 38 Q20 36 35 24 Q56 5 92 4 Q122 2 154 6 Q188 10 204 22 L220 34 L230 43 L232 50 Z" fill="#071880" stroke="#1030c0" stroke-width="1"/>
+        <path d="M37 25 Q56 8 89 6 L89 22 L37 25Z" fill="rgba(100,150,220,0.1)" stroke="#203080" stroke-width="0.8"/>
+        <path d="M96 6 L150 6 L150 21 L96 21Z" fill="rgba(100,150,220,0.1)" stroke="#203080" stroke-width="0.8"/>
+        <circle cx="56" cy="52" r="14" fill="#0a0a0a" stroke="#071880" stroke-width="1.5"/>
+        <circle cx="56" cy="52" r="7" fill="#141414" stroke="#1030c0" stroke-width="1"/>
+        <circle cx="185" cy="52" r="14" fill="#0a0a0a" stroke="#071880" stroke-width="1.5"/>
+        <circle cx="185" cy="52" r="7" fill="#141414" stroke="#1030c0" stroke-width="1"/>
+        <path d="M37 15 Q74 5 117 5" stroke="rgba(255,255,255,0.32)" stroke-width="1" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<nav>
+  <svg class="nav-logo" viewBox="0 0 220 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="ng" x1="0" y1="0" x2="220" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#e01020"/><stop offset="50%" stop-color="#f0f0f5"/><stop offset="100%" stop-color="#1040e0"/></linearGradient></defs>
+    <text x="4" y="38" font-family="'Bebas Neue',Impact,sans-serif" font-size="40" fill="url(#ng)" letter-spacing="2">MDM</text>
+    <text x="4" y="48" font-family="'Oswald','Arial Narrow',sans-serif" font-size="9" fill="#7090ff" letter-spacing="4">CAR DETAILING</text>
+  </svg>
+  <ul>
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#trabajos">Trabajos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+
+    <!-- LOGO -->
+    <div style="margin-bottom:28px">
+      <svg width="520" height="160" viewBox="0 0 520 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:88vw;height:auto">
+        <defs>
+          <linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff3040"/><stop offset="50%" stop-color="#e01020"/><stop offset="100%" stop-color="#800010"/></linearGradient>
+          <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4060ff"/><stop offset="50%" stop-color="#1040e0"/><stop offset="100%" stop-color="#082080"/></linearGradient>
+          <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff"/><stop offset="30%" stop-color="#e0e0f0"/><stop offset="65%" stop-color="#a0a0c0"/><stop offset="100%" stop-color="#606080"/></linearGradient>
+          <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,0.55)"/><stop offset="50%" stop-color="rgba(255,255,255,0)"/><stop offset="100%" stop-color="rgba(255,255,255,0.08)"/></linearGradient>
+          <filter id="tglow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <polygon points="10,10 510,10 510,110 0,120" fill="rgba(0,0,0,0.45)"/>
+        <polygon points="0,8 20,8 20,124 0,127" fill="url(#rg)"/>
+        <polygon points="500,8 520,8 520,112 500,116" fill="url(#bg2)"/>
+        <line x1="0" y1="8" x2="520" y2="8" stroke="url(#rg)" stroke-width="2.5"/>
+        <line x1="0" y1="124" x2="520" y2="118" stroke="url(#bg2)" stroke-width="2"/>
+        <text x="28" y="101" font-family="'Bebas Neue',Impact,sans-serif" font-size="102" letter-spacing="6" fill="rgba(0,0,0,0.75)" transform="skewX(-3)">MDM</text>
+        <text x="24" y="98" font-family="'Bebas Neue',Impact,sans-serif" font-size="102" letter-spacing="6" fill="url(#sg)" filter="url(#tglow)" transform="skewX(-3)">MDM</text>
+        <text x="24" y="98" font-family="'Bebas Neue',Impact,sans-serif" font-size="102" letter-spacing="6" fill="url(#shine)" transform="skewX(-3)">MDM</text>
+        <polygon points="0,54 520,47 520,55 0,62" fill="rgba(224,16,32,0.22)"/>
+        <text x="28" y="136" font-family="'Oswald','Arial Narrow',sans-serif" font-size="18" letter-spacing="12" fill="#7090ff" font-weight="700" transform="skewX(-2)">CAR DETAILING</text>
+        <circle cx="498" cy="130" r="5" fill="#e01020" opacity="0.75"/>
+        <circle cx="511" cy="130" r="3" fill="#1040e0" opacity="0.75"/>
+      </svg>
+    </div>
+
+    <div class="us-badge">
+      <svg width="28" height="20" viewBox="0 0 28 20" style="flex-shrink:0">
+        <rect width="28" height="20" rx="2" fill="#B22234"/>
+        <rect y="2.86" width="28" height="1.54" fill="white"/><rect y="5.72" width="28" height="1.54" fill="#B22234"/>
+        <rect y="8.57" width="28" height="1.54" fill="white"/><rect y="11.43" width="28" height="1.54" fill="#B22234"/>
+        <rect y="14.29" width="28" height="1.54" fill="white"/><rect y="17.14" width="28" height="1.54" fill="#B22234"/>
+        <rect width="12" height="10.8" rx="2" fill="#3C3B6E"/>
+        <circle cx="2.5" cy="2" r="0.8" fill="white"/><circle cx="5.5" cy="2" r="0.8" fill="white"/><circle cx="8.5" cy="2" r="0.8" fill="white"/>
+        <circle cx="2.5" cy="5" r="0.8" fill="white"/><circle cx="5.5" cy="5" r="0.8" fill="white"/><circle cx="8.5" cy="5" r="0.8" fill="white"/>
+        <circle cx="2.5" cy="8" r="0.8" fill="white"/><circle cx="5.5" cy="8" r="0.8" fill="white"/><circle cx="8.5" cy="8" r="0.8" fill="white"/>
+      </svg>
+      <span class="us-main">Estándares Norteamericanos</span>
+      <span class="us-sep">·</span>
+      <span class="us-3m">Sistema 3M Perfect-It</span>
+    </div>
+
+    <p class="hero-tagline">Tu coche merece brillar</p>
+    <p class="hero-sub">Servicio a domicilio · Valencia</p>
+
+    <div class="hero-badges">
+      <span class="badge badge-red">Puliture Profesional</span>
+      <span class="badge badge-blue">Corrección de Pintura</span>
+      <span class="badge badge-red">Ceramic Coating</span>
+      <span class="badge badge-blue">Restauración de Faros</span>
+    </div>
+
+    <a href="#trabajos" class="btn-primary">Ver nuestros trabajos</a>
+  </div>
+  <div class="scroll-ind">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <span class="strip-item">Plan Normal</span>
+  <span class="strip-item">Puliture Completa</span>
+  <span class="strip-item">Full Corrección</span>
+  <span class="strip-item">Puliture de Faros</span>
+  <span class="strip-item">Ceramic Coating</span>
+  <span class="strip-item">Protección 3M</span>
+</div>
+
+<!-- STANDARDS -->
+<div class="standards">
+  <div class="std-item">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#e01020" stroke-width="1.5"/><path d="M9 15l4 4 8-8" stroke="#e01020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div><p class="std-title">Estándares USA</p><p class="std-sub">Técnicas norteamericanas</p></div>
+  </div>
+  <div class="std-item">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><rect x="3" y="7" width="24" height="18" rx="2" stroke="#1040e0" stroke-width="1.5"/><path d="M3 12h24" stroke="#1040e0" stroke-width="1.5"/><circle cx="9" cy="18" r="2" fill="#1040e0"/><path d="M14 18h8" stroke="#1040e0" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <div><p class="std-title">Sistema 3M Perfect-It</p><p class="std-sub">3 pasos certificados</p></div>
+  </div>
+  <div class="std-item">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M15 3l2.5 7H25l-6 4.5 2.5 7.5L15 18l-6 4.5 2.5-7.5L5 10h7.5z" stroke="#e01020" stroke-width="1.5" stroke-linejoin="round"/></svg>
+    <div><p class="std-title">Resultados Premium</p><p class="std-sub">Acabado de exposición</p></div>
+  </div>
+  <div class="std-item">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="11" stroke="#1040e0" stroke-width="1.5"/><path d="M15 7v8l5 3" stroke="#1040e0" stroke-width="2" stroke-linecap="round"/></svg>
+    <div><p class="std-title">Servicio a Domicilio</p><p class="std-sub">Vamos hasta donde estés</p></div>
+  </div>
+</div>
+
+<!-- TRABAJOS -->
+<section id="trabajos">
+  <div class="sec-header">
+    <p class="sec-label">Resultados reales</p>
+    <h2 class="sec-title">Nuestros Trabajos</h2>
+    <div class="sec-line"></div>
+  </div>
+
+  <!-- FOTOS -->
+  <div class="photos-wrap">
+    <div class="photos-grid">
+      <div class="photo-item"><img src="IMG_0345.jpeg" alt="Trabajo MDM Car Detailing"></div>
+      <div class="photo-item"><img src="IMG_0346.jpeg" alt="Trabajo MDM Car Detailing"></div>
+      <div class="photo-item"><img src="IMG_0347.jpeg" alt="Trabajo MDM Car Detailing"></div>
+      <div class="photo-item"><img src="IMG_0348.jpeg" alt="Trabajo MDM Car Detailing"></div>
+    </div>
+  </div>
+
+  <!-- VIDEOS YOUTUBE SHORTS -->
+  <div class="videos-wrap">
+    <div class="shorts-grid">
+      <div class="short-item"><iframe src="https://www.youtube.com/embed/pio22fq2w6o" title="MDM Car Detailing" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="short-item"><iframe src="https://www.youtube.com/embed/5v12JcINhxA" title="MDM Car Detailing" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="short-item"><iframe src="https://www.youtube.com/embed/wTmtnQG7Ljo" title="MDM Car Detailing" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="short-item"><iframe src="https://www.youtube.com/embed/WxWKRtoZ6Zk" title="MDM Car Detailing" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="short-item"><iframe src="https://www.youtube.com/embed/fzlubsylpuc" title="MDM Car Detailing" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- CTA -->
+<div class="cta" id="contacto">
+  <h2 class="cta-title">¿Listo para darle vida a tu coche?</h2>
+  <p class="cta-sub">Inspección gratuita · Sin compromiso · A domicilio</p>
+  <a href="https://wa.me/34TUNUMERO" class="btn-primary" target="_blank">Contactar por WhatsApp</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <svg class="footer-logo" viewBox="0 0 220 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="fg" x1="0" y1="0" x2="220" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#500008"/><stop offset="50%" stop-color="#404060"/><stop offset="100%" stop-color="#081040"/></linearGradient></defs>
+    <text x="4" y="38" font-family="'Bebas Neue',Impact,sans-serif" font-size="40" fill="url(#fg)" letter-spacing="2">MDM</text>
+    <text x="4" y="48" font-family="'Oswald','Arial Narrow',sans-serif" font-size="9" fill="#303050" letter-spacing="4">CAR DETAILING</text>
+  </svg>
+  <p class="footer-text">© 2026 MDM Car Detailing · Valencia, España</p>
+</footer>
+
+</body>
+</html>
